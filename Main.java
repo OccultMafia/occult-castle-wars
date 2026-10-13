@@ -58,7 +58,6 @@ public class Main extends Script {
     private State state              = State.TELEPORT_TO_CW;
     private WorldPoint afkTile       = null;
     private int climbDelay           = 0;
-    private boolean inventoryCleared = false;
     private boolean gearDeposited    = false;
     private int debugTick            = 0;
     private StatsOverlay overlay;
@@ -105,7 +104,6 @@ public class Main extends Script {
         sessionTickets       = 0;
         initialCwTickets     = api.inventory.quantity("Castle wars ticket");
         lastGameEndTickets   = 0;
-        inventoryCleared     = false;
         gearDeposited        = false;
         debugTick        = 0;
         sessionStartMs   = System.currentTimeMillis();
@@ -210,7 +208,7 @@ public class Main extends Script {
 
         // Overworld, plane 0
         if (!inCastleWarsRegion(pos)) return State.TELEPORT_TO_CW;
-        if (!inventoryCleared) return State.BANK_AND_CLEAR;
+        if (hasNonTicketItems()) return State.BANK_AND_CLEAR;
         if (client.getWorld() != targetWorld()) return State.HOP_WORLD;
         return State.ENTER_PORTAL;
     }
@@ -283,8 +281,7 @@ public class Main extends Script {
         }
         log("doBank: closing bank");
         api.bank.close();
-        inventoryCleared = true;
-        gearDeposited    = false;
+        gearDeposited = false;
     }
 
     private void doHop() {
