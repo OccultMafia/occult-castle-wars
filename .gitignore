@@ -1,0 +1,6 @@
+.idea/
+*.iml
+out/
+.claude/
+javadoc/
+org/
