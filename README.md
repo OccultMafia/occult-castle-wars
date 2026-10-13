@@ -2,7 +2,7 @@
 
 A [PureApi Scripter](https://runelite.net/plugin-hub/show/pureapi) script for RuneLite that farms Castle Wars participation tickets fully automatically.
 
-The script enters the Guthix portal, waits in the lobby, climbs to the castle roof, and AFKs through each game. It loops indefinitely, banking between games to deposit equipment and consolidate tickets.
+The script enters the Guthix portal, waits in the lobby, climbs to the castle roof, and AFKs through each game. It loops indefinitely, only stopping to bank if non-ticket items are found in the inventory.
 
 ---
 
@@ -10,7 +10,7 @@ The script enters the Guthix portal, waits in the lobby, climbs to the castle ro
 
 - RuneLite with the **PureApi Scripter** plugin installed
 - A **Ring of Dueling** in your inventory or equipment (for the initial teleport to Castle Wars — the script falls back to walking if none is available)
-- No other items needed — the script banks everything at the start
+- No specific items required between rounds — the script only banks when non-ticket items are detected in your inventory
 
 ---
 
@@ -35,7 +35,7 @@ Alternatively, clone or download this repository into your Scripter scripts fold
 ## How it works
 
 1. **Teleport** — uses a Ring of Dueling to teleport to Castle Wars; falls back to walking if none is equipped or in inventory
-2. **Bank** — deposits all inventory and worn equipment; withdraws any Castle Wars tickets already in the bank so the count stays accurate
+2. **Bank** *(only if needed)* — checks inventory for non-ticket items; if any are found, opens the bank, deposits them along with any worn equipment, and withdraws any Castle Wars tickets held in the bank. If inventory only contains tickets this step is skipped entirely and the script goes straight to the portal
 3. **Hop world** — hops to the configured target world (354 members / 383 F2P)
 4. **Enter portal** — interacts with the Guthix portal (neutral team, no side preference)
 5. **Wait for game** — idles on a random tile in the waiting room until the game starts
